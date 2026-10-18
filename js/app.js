@@ -71,7 +71,10 @@ case 'filter':state.search=b.dataset.category==='Semua'?'':b.dataset.category;re
 }
 });
 app.addEventListener('submit',ev=>{const form=ev.target;if(!form.id)return;ev.preventDefault();const data=Object.fromEntries(new FormData(form).entries());execute(form.id,async()=>{let result;
-switch(form.id){case 'login-form':await api.signIn(data.email,data.password||'');result=await api.request('session');state.user=cfg.mode==='demo'?{...result.user,name:'Petugas '+result.user.role}:result.user;go('dashboard');toast('Sesi aktif.');return;
+switch(form.id){case 'login-form':await api.signIn(
+    (data.loginEmail || '').trim(),
+    data.loginPassword || ''
+  );result=await api.request('session');state.user=cfg.mode==='demo'?{...result.user,name:'Petugas '+result.user.role}:result.user;go('dashboard');toast('Sesi aktif.');return;
 case 'product-form':result=await api.request('saveProduct',{...data,price:Number(data.price),hpp:Number(data.hpp),minStock:Number(data.minStock),weight:Number(data.weight)},newId());toast('SKU berhasil disimpan.');go('products');return;
 case 'pos-form':{const requestId=sessionStorage.getItem('simPosPendingId')||newId();sessionStorage.setItem('simPosPendingId',requestId);result=await api.request('posCommit',{items:state.posCart.map(x=>({variantId:x.id,qty:x.qty})),method:data.method,received:Number(data.received),settlementConfirmed:data.settlementConfirmed==='yes',paymentReference:(data.paymentReference||'').trim()},requestId);sessionStorage.removeItem('simPosPendingId');state.catalogAt=0;state.posCart=[];state.lastSale=result;go('receipt');toast('Penjualan tercatat: '+result.orderNo);return;}
 case 'supplier-form':await api.request('saveSupplier',data,newId());go('suppliers');toast('Supplier disimpan.');return;
