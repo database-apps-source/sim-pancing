@@ -8,3 +8,18 @@ html[data-theme="dark"]{--bg:#0b1f24;--card:#123038;--muted:#1a3e45;--subtle:#20
 @media(max-width:830px){.shell{display:block}.sidebar{position:relative;height:auto;width:auto;display:block;padding:12px}.sidebar .terminal,.sidebar .sidebar-foot,.sidebar .nav-group{display:none}.sidebar .brand{display:inline-flex}.sidebar .navlist{display:flex;overflow-x:auto;gap:3px;padding:9px 0 0}.nav{white-space:nowrap;width:auto}.topbar{padding:10px 16px}.content{padding:20px 15px}.pos-layout,.checkgrid{grid-template-columns:1fr}.cart-box{position:static}.grid.three{grid-template-columns:repeat(2,minmax(0,1fr))}.login-grid{grid-template-columns:1fr}.login-right{display:none}.store-grid{grid-template-columns:1fr}.store-grid>aside{display:none}.public-header{padding:10px 16px}}
 @media(max-width:540px){.grid.four,.grid.three,.grid.two,.form-row{grid-template-columns:1fr}.pos-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.product-art{height:105px}.product-title{font-size:12px}.pagehead{display:block}.head-actions{margin-top:12px}.profile{display:none}.search-top{max-width:none}.topbar{gap:8px}.store-hero{display:block;padding:24px}.stepper{display:grid;grid-template-columns:repeat(2,1fr)}.login-left{padding:24px}}
 @media print{.sidebar,.topbar,.btn,.no-print,#toast{display:none!important}.shell{display:block}.card{box-shadow:none}.content{padding:0}}
+
+/* Stage 11.3: reprint of historical POS receipts */
+.receipt-paper{max-width:400px;margin:0 auto;font-size:12px;line-height:1.55}
+.rc-brand{font-size:20px;letter-spacing:.06em}.rc-center{text-align:center}
+.rc-dash{border-top:1px dashed var(--border);margin:12px 0}
+.rc-line{padding:6px 0}.rc-math{display:flex;justify-content:space-between;gap:8px;font-variant-numeric:tabular-nums}
+.rc-total{display:flex;justify-content:space-between;gap:8px;padding:3px 0;font-variant-numeric:tabular-nums}
+.rc-grand{font-size:17px;border-top:1px solid var(--border);margin-top:7px;padding-top:9px;font-weight:800}
+@media print{
+ body.pos-print-mode *{visibility:hidden!important}
+ body.pos-print-mode #pos-receipt,body.pos-print-mode #pos-receipt *{visibility:visible!important}
+ body.pos-print-mode #pos-receipt{position:absolute;left:0;top:0;margin:0;width:76mm;max-width:76mm;padding:3mm;background:#fff;color:#111;border:0;border-radius:0;box-shadow:none;font:11px/1.45 system-ui,sans-serif}
+ body.pos-print-mode #pos-receipt .rc-dash{border-top-color:#555}
+ body.pos-print-mode #pos-receipt .rc-grand{border-top-color:#555}
+}
